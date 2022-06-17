@@ -50,7 +50,7 @@ contract("Testing college", accounts => {
 
     it("Verify that student gets 100 because of rounding up", async () =>
     {
-        await instance.createRevision([2, "Roberto", 0, false, 0],{from: accounts[0]});
+        await instance.createRevision([2, "Tadeo", 0, false, 0],{from: accounts[0]});
         await instance.finalizeReview(2,91,{from: accounts[0], value: web3.utils.toWei("1", "ether")});
         const note = await instance.listNotes.call(2);
         console.log(note.score);
