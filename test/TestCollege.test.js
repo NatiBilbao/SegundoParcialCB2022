@@ -48,7 +48,7 @@ contract("Testing college", accounts => {
         }
     })
 
-    it("Verify that student gets 100 because of rounding up", async () =>
+    it("Verifique que el estudiante obtenga 100 debido al redondeo", async () =>
     {
         await instance.createRevision([2, "Tadeo", 0, false, 0],{from: accounts[0]});
         await instance.finalizeReview(2,91,{from: accounts[0], value: web3.utils.toWei("1", "ether")});
@@ -58,7 +58,7 @@ contract("Testing college", accounts => {
     })
 
 
-    it("Verify that student name length is higher than 5", async () =>
+    it("Verifique que la longitud del nombre del estudiante sea superior a 5", async () =>
     {
         try {
             await instance.createRevision([3, "Cris", 0, false, 0],{from: accounts[0]});
@@ -68,12 +68,12 @@ contract("Testing college", accounts => {
             assert(note.name.length > 5);
         } catch (e) {
             console.log("Error", e);
-            assert.equal("The name of product should be more than.", e.reason);
+            assert.equal("El nombre del producto debe ser más que.", e.reason);
         }
 
     })
 
-    it("Verify that student gets 100", async () =>
+    it("Verifique que el estudiante obtenga 100", async () =>
     {
         await instance.createRevision([4, "Lili", 0, false, 0],{from: accounts[0]});
         await instance.finalizeReview(4,100,{from: accounts[0], value: web3.utils.toWei("1", "ether")});
@@ -82,7 +82,7 @@ contract("Testing college", accounts => {
         assert.equal(100, note.score);
     })
 
-    it("Verify that student has its score finalized and that she pays 10 ETH", async () =>
+    it("Verificar que el alumno tenga su puntaje finalizado y que pague 10 ETH", async () =>
     {
 
         await instance.createRevision([5, "Tatiana", 0, false, 0],{from: accounts[0]});
@@ -91,7 +91,7 @@ contract("Testing college", accounts => {
         console.log("Que no pro");
         console.log(note.finalized);
         console.log(note.typeTest.negative);
-        console.log("Holas")
+        console.log("Hola")
         assert.equal(note.finalized, true);
         assert.equal(note.typeTest.negative, 1);
 
@@ -100,7 +100,7 @@ contract("Testing college", accounts => {
         await instance.request2T(5,{from: accounts[0], value: web3.utils.toWei(price, "ether")});
         const fBalance = accounts[5].balance;
         assert.equal(note.finalized, false);
-        assert.equal(note.typeTest.negative, 2);
+        assert.equal(note.typeTest, 2);
         const diff = iBalance - fBalance
         assert(10 <= diff);
 
@@ -109,10 +109,10 @@ contract("Testing college", accounts => {
 
     })
 
-    it("Only professor can check the balance", async () =>
+    it("Solo el profesor puede verificar el saldo", async () =>
     {
         try {
-            await instance.balanceOfCollege({from: accounts[0]});
+            await instance.balanceOfCollege({from: accounts[2]});
 
         } catch (e) {
             console.log("Error", e);
